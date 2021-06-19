@@ -33,6 +33,7 @@ const NavBar = () => {
                         color="inherit"
                     >
                         <img src={logo} alt="Commerce.js" height="25px" className={classes.image} />
+                        e-Bazar
                     </Typography>
                     <div className={classes.grow} />
                     {location.pathname === '/' && (
