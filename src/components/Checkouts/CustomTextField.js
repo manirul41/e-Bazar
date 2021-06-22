@@ -4,14 +4,12 @@ import React from 'react';
 import { Controller } from 'react-hook-form';
 
 const FormInput = ({ name, label, required }) => {
-    // const { control } = useForm();
     const isError = false;
 
     return (
         <Grid item xs={12} sm={6}>
             <Controller
                 name={name}
-                // control={control}
                 error={isError}
                 render={({ field, fieldState: { error } }) => (
                     <TextField
