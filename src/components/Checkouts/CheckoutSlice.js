@@ -7,6 +7,7 @@ const checkoutSlice = createSlice({
         countries: [],
         subdivisions: [],
         shippingOptions: [],
+        captureCheckout: [],
         status: null,
     },
     reducers: {
@@ -26,8 +27,13 @@ const checkoutSlice = createSlice({
             state.status = 'successfull';
             state.shippingOptions = action.payload;
         },
+        getCaptureCheckout: (state, action) => {
+            state.status = 'successfull';
+            state.captureCheckout = action.payload;
+        },
     },
 });
 
-export const { getToken, getCountries, getSubdivisions, shippingOptions } = checkoutSlice.actions;
+export const { getToken, getCountries, getSubdivisions, shippingOptions, captureCheckout } =
+    checkoutSlice.actions;
 export default checkoutSlice;

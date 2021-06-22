@@ -1,5 +1,8 @@
 import commerce from '../../lib/commerce';
+import cartSlice from '../Cart/CartSlice';
 import checkoutSlice from './CheckoutSlice';
+
+const { actions: cart } = cartSlice;
 
 const { actions: checkout } = checkoutSlice;
 
@@ -28,11 +31,19 @@ const fetchShippingOptions =
         return dispatch(checkout.getShippingOptions(options));
     };
 
+const fatchCaptureCheckout = (checkoutTokenId, newOrder) => async (dispatch) => {
+    const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder);
+    dispatch(checkout.getCaptureCheckout(incomingOrder));
+    const newCart = await commerce.cart.refresh();
+    dispatch(cart.getCart(newCart));
+};
+
 const checkoutAction = {
     fatchGenerateToken,
     fetchShippingCountries,
     fetchSubdivisions,
     fetchShippingOptions,
+    fatchCaptureCheckout,
 };
 
 export default checkoutAction;

@@ -9,7 +9,7 @@ import FormInput from './CustomTextField';
 
 const { fetchShippingCountries, fetchSubdivisions, fetchShippingOptions } = checkoutAction;
 
-const AddressForm = ({ checkoutToken }) => {
+const AddressForm = ({ checkoutToken, test }) => {
     // const token = useSelector((state) => state.checkouts.token);
     // const countries = useSelector((state) => state.checkouts.countries);
     // console.log(token);
@@ -20,27 +20,16 @@ const AddressForm = ({ checkoutToken }) => {
     const [shippingSubdivision, setShippingSubdivision] = useState('');
     const [shippingOptions, setShippingOptions] = useState([]);
     const [shippingOption, setShippingOption] = useState('');
-    const methods = useForm();
-    // console.log(shippingCountries);
-    // const fetchShippingCountries = async (checkoutTokenId) => {
-    //     const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
-
-    //     setShippingCountries(countries);
-    //     setShippingCountry(Object.keys(countries)[0]);
-    // };
-
-    // const fetchSubdivisions = async (countryCode) => {
-    //     const { subdivisions } = await commerce.services.localeListSubdivisions(countryCode);
-
-    // };
-
-    // const fetchShippingOptions = async (checkoutTokenId, country, stateProvince = null) => {
-    //     const options = await commerce.checkout.getShippingOptions(checkoutTokenId, {
-    //         country,
-    //         region: stateProvince,
-    //     });
-
-    // };
+    const methods = useForm({
+        defaultValues: {
+            firstName: '',
+            lastName: '',
+            address1: '',
+            email: '',
+            city: '',
+            zip: '',
+        },
+    });
 
     useEffect(() => {
         dispatch(fetchShippingCountries(checkoutToken.id)).then((res) => {
@@ -74,9 +63,14 @@ const AddressForm = ({ checkoutToken }) => {
             </Typography>
             <FormProvider {...methods}>
                 <form
-                    onSubmit={methods.handleSubmit((data) =>
-                        test({ ...data, shippingCountry, shippingSubdivision, shippingOption })
-                    )}
+                    onSubmit={methods.handleSubmit((data) => {
+                        test({
+                            ...data,
+                            shippingCountry,
+                            shippingSubdivision,
+                            shippingOption,
+                        });
+                    })}
                 >
                     <Grid container spacing={3}>
                         <FormInput required name="firstName" label="First name" />
