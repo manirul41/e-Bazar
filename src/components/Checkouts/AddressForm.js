@@ -36,6 +36,10 @@ const AddressForm = ({ checkoutToken, test }) => {
             setShippingCountries(res.payload);
             setShippingCountry(Object.keys(res.payload)[0]);
         });
+        return () => {
+            setShippingCountries([]);
+            setShippingCountry('');
+        };
     }, []);
 
     useEffect(() => {
@@ -44,6 +48,10 @@ const AddressForm = ({ checkoutToken, test }) => {
                 setShippingSubdivisions(res.payload);
                 setShippingSubdivision(Object.keys(res.payload)[0]);
             });
+        return () => {
+            setShippingSubdivisions([]);
+            setShippingSubdivision('');
+        };
     }, [shippingCountry]);
 
     useEffect(() => {
@@ -54,6 +62,10 @@ const AddressForm = ({ checkoutToken, test }) => {
                 setShippingOptions(res.payload);
                 setShippingOption(res.payload[0].id);
             });
+        return () => {
+            setShippingOptions([]);
+            setShippingOption('');
+        };
     }, [shippingSubdivision]);
 
     return (
